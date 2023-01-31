@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IMateriaService {
 
-    public List<MateriaEntity> listar();
+    public List<MateriaDto> listar();
 
-    public MateriaEntity consultar(final Long id);
+    public MateriaDto consultar(final Long id);
 
     public Boolean cadastrar(final MateriaDto materia);
 

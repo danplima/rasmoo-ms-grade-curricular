@@ -19,12 +19,12 @@ public class MateriaController {
     private IMateriaService materiaService;
 
     @GetMapping
-    public ResponseEntity<List<MateriaEntity>> listarMaterias() {
+    public ResponseEntity<List<MateriaDto>> listarMaterias() {
         return ResponseEntity.status(HttpStatus.OK).body(materiaService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MateriaEntity> consultarMateria(@PathVariable Long id) {
+    public ResponseEntity<MateriaDto> consultarMateria(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(materiaService.consultar(id));
     }
 

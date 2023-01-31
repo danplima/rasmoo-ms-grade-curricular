@@ -28,7 +28,7 @@ public class MateriaService implements IMateriaService {
     }
 
     @Override
-    public List<MateriaEntity> listar() {
+    public List<MateriaDto> listar() {
         try {
             return this.mapper.map(this.materiaRepository.findAll(), new TypeToken<List<MateriaDto>>(){}.getType()) ;
         } catch (Exception e) {
@@ -38,11 +38,11 @@ public class MateriaService implements IMateriaService {
     }
 
     @Override
-    public MateriaEntity consultar(Long id) {
+    public MateriaDto consultar(Long id) {
         try {
             Optional<MateriaEntity> optionalMateria = this.materiaRepository.findById(id);
             if (optionalMateria.isPresent()) {
-                return this.mapper.map(optionalMateria.get(), MateriaEntity.class);
+                return this.mapper.map(optionalMateria.get(), MateriaDto.class);
             }
             throw new MateriaException(MATERIA_NAO_ENCONTRADA, HttpStatus.NOT_FOUND);
         } catch (MateriaException m) {
