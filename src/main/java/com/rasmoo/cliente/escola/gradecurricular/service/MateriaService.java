@@ -7,12 +7,17 @@ import com.rasmoo.cliente.escola.gradecurricular.repository.IMateriaRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@CacheConfig(cacheNames = "materia")
 @Service
 public class MateriaService implements IMateriaService {
 
@@ -27,6 +32,7 @@ public class MateriaService implements IMateriaService {
         this.materiaRepository = materiaRepository;
     }
 
+    @CachePut(unless = "#result.size()<3")
     @Override
     public List<MateriaDto> listar() {
         try {
@@ -38,6 +44,7 @@ public class MateriaService implements IMateriaService {
     }
 
     @Override
+    @CachePut(key = "#id")
     public MateriaDto consultar(Long id) {
         try {
             Optional<MateriaEntity> optionalMateria = this.materiaRepository.findById(id);
